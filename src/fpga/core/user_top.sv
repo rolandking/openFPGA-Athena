@@ -111,7 +111,8 @@ module user_top (
         cram0.tie_off();
         cram1.tie_off();
 
-        dram.tie_off();
+        // FIXME: put this back
+        //dram.tie_off();
 
         sram.tie_off();
 
@@ -217,7 +218,10 @@ module user_top (
         .pll_core_locked,
         .bridge_rom       (bridge_out[ROM]),
         .video            (video_raw),
-        .audio
+        .audio,
+
+        // FIXME: temp
+        .dram
     );
 
 endmodule
