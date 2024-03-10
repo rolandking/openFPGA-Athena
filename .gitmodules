@@ -1,6 +1,9 @@
 [submodule "mister"]
 	path = mister
-	url = git@github.com:MiSTer-devel/Arcade-Athena_MiSTer.git
+	url = git@github.com:rolandking/Arcade-Athena_MiSTer.git
 [submodule "pocket-base"]
 	path = pocket-base
 	url = git@github.com:rolandking/openFPGA-pocket-base.git
+[submodule "roland_mister"]
+	path = roland_mister
+	url = git@github.com:rolandking/Arcade-Athena_MiSTer.git
