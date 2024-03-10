@@ -66,8 +66,8 @@ module athena_top(
 
     always_comb begin
         pause_cpu     =  ~reset_n;
-        dsw1          = '0;
-        dsw2          = '0;
+        dsw1          = 8'h9c;
+        dsw2          = 8'hf7;
         PLAYER1       = '1;
         PLAYER2       = '1;
 
