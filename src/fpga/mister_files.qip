@@ -6,7 +6,7 @@ set_global_assignment -name VERILOG_FILE ../../mister/rtl/ram/SRAM_sync_noinit.v
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/ram/SRAM_dual_sync.v
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/ttl/DFF_pseudoAsyncClrPre2.v
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/ttl/DFF_pseudoAsyncClrPre.v
-set_global_assignment -name VHDL_FILE ../../mister/rtl/ram/dpram_dc.vhd
+#set_global_assignment -name VHDL_FILE ../../mister/rtl/ram/dpram_dc.vhd
 set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/ram/rom_loader.sv
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/POR.v
 set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/ttl/ttl_74374_sync.s

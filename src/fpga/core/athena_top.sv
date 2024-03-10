@@ -9,7 +9,7 @@ module athena_top(
     audio_if      audio,
 
     // FIXME: temp
-    dram_if       dram
+    cram_if       cram
 );
 
     /* main clock for Athena runs at 53.600MHz
@@ -17,24 +17,6 @@ module athena_top(
      * generate 26.8Mhz dot clocks and sample
      * the outputs from the core
      */
-
-    /*
-     * 26.8Mhz / 50 = 536,000 HZ
-     * so set up for 1664 x 262 dots
-     * 26800000 / 1664 / 262 == 61.47Hz
-     * 1664 / 4 = 416 active dots
-     *
-     * visible screen size is 228 x 216
-     */
-    video_dummy#(
-        .x_dots (1664),
-        .y_dots (262),
-        .x_px   (228),
-        .y_px   (216),
-        .duty   (4)
-    ) vd (
-        .video
-    );
 
     audio_dummy ad(
         .clk_12_288_mhz,
@@ -82,51 +64,52 @@ module athena_top(
     logic        HBLANK, VBLANK, HSYNC, VSYNC, CE_PIXEL;
     logic signed [15:0] snd1, snd2;
 
-    logic [15:0] x_clocks, x_ce_enable, y_lines, x_unblanked, y_unblanked, x_pixels;
-    video_count(
-        .clk  (clk_53_6_mhz),
-        .HBLANK,
-        .VBLANK,
-        .CE_PIXEL,
-        .x_clocks,
-        .x_ce_enable,
-        .y_lines,
-        .x_unblanked,
-        .y_unblanked,
-        .x_pixels
-    );
-
-    /*
-     * make an output so we can keep the hierarchy
-     */
-    logic [14:0] temp_hold /* synthesis keep */;
     always_comb begin
-        temp_hold = {R,G,B,HBLANK,VBLANK,CE_PIXEL};
-
-        dram.tie_off();
-        dram.data_out = temp_hold;
-    end
-
-    always_comb begin
-        pause_cpu    = '0;
-        dsw1         = '0;
-        dsw2         = '0;
-        PLAYER1      = '1;
-        PLAYER2      = '1;
+        pause_cpu     =  ~reset_n;
+        dsw1          = '0;
+        dsw2          = '0;
+        PLAYER1       = '1;
+        PLAYER2       = '1;
 
         // FIXME: take a register or memory write to get the game
-        game         = '0;
+        game          = 8'h02;
 
         // FIXME: is this the screen flip?
         hack_settings = 8'b00000001;
 
-        ioctl_addr    = '0;
-        ioctl_data    = '0;
-        ioctl_wr      = '0;
         layer_ena_dbg = '1;
         dbg_B1Voffset = 4'b0011;
         swap_px       = '1;
     end
+
+    bus_if#(
+        .addr_width(32),
+        .data_width(32)
+    ) bridge_rom_cdc (.clk(clk_53_6_mhz));
+
+    bridge_cdc rom_cdc(
+        .in  (bridge_rom    ),
+        .out (bridge_rom_cdc)
+    );
+
+    bus_if#(
+        .addr_width(25),
+        .data_width(8)
+    ) mem(.clk(clk_53_6_mhz));
+
+    bridge_to_bytes#(
+        .CYCLES  (8)
+    ) b2b(
+        .bridge    (bridge_rom_cdc),
+        .mem
+    );
+
+    bus_if#(
+        .addr_width  (16),
+        .data_width  (8)
+    ) ym3256 (
+        .clk  (clk_53_6_mhz)
+    );
 
     AthenaCore snk_athena
     (
@@ -143,9 +126,9 @@ module athena_top(
         //HACK settings
         .hack_settings(hack_settings),
         //hps_io rom interface
-        .ioctl_addr,
-        .ioctl_wr,
-        .ioctl_data,
+        .ioctl_addr          (mem.addr),
+        .ioctl_wr            (mem.wr),
+        .ioctl_data          (mem.wr_data),
         .layer_ena_dbg,
         .dbg_B1Voffset,
         .swap_px,
@@ -159,8 +142,49 @@ module athena_top(
         .VSYNC,
         .CE_PIXEL,
         .snd1,
-        .snd2
-   );
+        .snd2,
 
+        .ym3256
+    );
+
+    ym3256_mem y_mem (
+        .reset_n,
+        .cram,
+        .mem,
+        .ym3256
+    );
+
+    edge_detect#(
+        .positive  ('1)
+    ) hsync_edge (
+        .clk     (video.rgb_clock),
+        .in      (HSYNC),
+        .out     (video.hs)
+    );
+
+    // stretch the CE_PIXEL over two cycles
+    logic ce_ff, ce_held;
+    always @(posedge clk_53_6_mhz) begin
+        ce_ff <= CE_PIXEL;
+    end
+
+    always_comb begin
+        ce_held = CE_PIXEL | ce_ff;
+    end
+
+
+    edge_detect#(
+        .positive  ('1)
+    ) vsync_edge (
+        .clk     (video.rgb_clock),
+        .in      (VSYNC),
+        .out     (video.vs)
+    );
+
+    always_comb begin
+        video.de   = ~(VBLANK || HBLANK);
+        video.skip = video.de && !ce_held;
+        video.rgb  = video.de ? {R, 4'b0, G, 4'b0, B, 4'b0 } : 24'b0;
+     end
 
 endmodule

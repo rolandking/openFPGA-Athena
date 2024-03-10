@@ -9,8 +9,10 @@ set_global_assignment -name QIP_FILE ../../pocket-base/bridge/bridge.qip
 set_global_assignment -name QIP_FILE ../../pocket-base/loader/loader.qip
 set_global_assignment -name QIP_FILE ../../pocket-base/cdc_fifo/cdc_fifo.qip
 set_global_assignment -name QIP_FILE ../../pocket-base/utils/utils.qip
+set_global_assignment -name QIP_FILE ../../pocket-base/memory/memory.qip
 
 set_global_assignment -name SYSTEMVERILOG_FILE core/user_top.sv
 set_global_assignment -name SYSTEMVERILOG_FILE core/athena_top.sv
+set_global_assignment -name SYSTEMVERILOG_FILE core/ym3256_mem.sv
 
 set_global_assignment -name QIP_FILE mister_files.qip

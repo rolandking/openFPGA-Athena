@@ -108,11 +108,11 @@ module user_top (
 
         gba.tie_off();
 
-        cram0.tie_off();
+        //cram0.tie_off();
         cram1.tie_off();
 
-        // FIXME: put this back
-        //dram.tie_off();
+
+        dram.tie_off();
 
         sram.tie_off();
 
@@ -219,9 +219,7 @@ module user_top (
         .bridge_rom       (bridge_out[ROM]),
         .video            (video_raw),
         .audio,
-
-        // FIXME: temp
-        .dram
+        .cram             (cram0)
     );
 
 endmodule
