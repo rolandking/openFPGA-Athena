@@ -8,20 +8,9 @@ module athena_top(
     video_if      video,
     audio_if      audio,
 
-    // FIXME: temp
-    cram_if       cram
+    cram_if       cram,
+    controller_if controller
 );
-
-    /* main clock for Athena runs at 53.600MHz
-     * which is too fast to be a dot clock.
-     * generate 26.8Mhz dot clocks and sample
-     * the outputs from the core
-     */
-
-    audio_dummy ad(
-        .clk_12_288_mhz,
-        .audio
-    );
 
     /* main clock for Athena runs at 53.600MHz
      * which is too fast to be a dot clock.
@@ -64,11 +53,25 @@ module athena_top(
     logic        HBLANK, VBLANK, HSYNC, VSYNC, CE_PIXEL;
     logic signed [15:0] snd1, snd2;
 
+    pocket::key_t k;
     always_comb begin
+        k             = controller.key;
         pause_cpu     =  ~reset_n;
         dsw1          = 8'hf7;
         dsw2          = 8'h9c;
         PLAYER1       = '1;
+        PLAYER1       = {2'b11,
+            ~k.dpad_up,
+            ~k.dpad_down,
+            ~k.dpad_right,
+            ~k.dpad_left,
+            1'b1,
+            5'b11111,
+            ~k.face_b,
+            ~k.face_a,
+            ~k.face_start,
+            ~k.face_select
+            };
         PLAYER2       = '1;
 
         // FIXME: take a register or memory write to get the game
@@ -185,6 +188,28 @@ module athena_top(
         video.de   = ~(VBLANK || HBLANK);
         video.skip = video.de && !ce_held;
         video.rgb  = video.de ? {R, 4'b0, G, 4'b0, B, 4'b0 } : 24'b0;
-     end
+    end
+
+    logic signed [15:0] snd1_cdc, snd2_cdc;
+    cdc_buffer#(
+        .data_width (32)
+    ) sound_cdc (
+        .wr_clk   (clk_53_6_mhz),
+        .wr_data  ({snd1, snd2}),
+        .wr       ('1),
+
+        .rd_clk   (clk_12_288_mhz),
+        .rd_data  ({snd1_cdc, snd2_cdc})
+    );
+
+    audio_standard audio_out(
+        .clk_12_288_mhz,
+
+        .sound_l    (snd1_cdc),
+        .sound_r    (snd2_cdc),
+
+        .audio
+    );
+
 
 endmodule

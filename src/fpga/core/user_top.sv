@@ -219,7 +219,8 @@ module user_top (
         .bridge_rom       (bridge_out[ROM]),
         .video            (video_raw),
         .audio,
-        .cram             (cram0)
+        .cram             (cram0),
+        .controller       (controller[1])
     );
 
 endmodule
