@@ -60,7 +60,7 @@ module user_top (
     output  logic           bridge_endian_little,
     bus_if                  bridge,
 
-    controller_if           controller[1:4]
+    input controller_t      controllers[1:4]
 );
     typedef enum int {
         CMD = 0,
@@ -220,7 +220,7 @@ module user_top (
         .video            (video_raw),
         .audio,
         .cram             (cram0),
-        .controller       (controller[1])
+        .controllers
     );
 
 endmodule

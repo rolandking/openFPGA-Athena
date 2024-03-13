@@ -1,15 +1,15 @@
 
 
 module athena_top(
-    input logic   clk_74a,
-    input logic   reset_n,
-    output logic  pll_core_locked,
-    bus_if        bridge_rom,
-    video_if      video,
-    audio_if      audio,
+    input logic        clk_74a,
+    input logic        reset_n,
+    output logic       pll_core_locked,
+    bus_if             bridge_rom,
+    video_if           video,
+    audio_if           audio,
 
-    cram_if       cram,
-    controller_if controller
+    cram_if            cram,
+    input controller_t controllers[1:4]
 );
 
     /* main clock for Athena runs at 53.600MHz
@@ -53,26 +53,53 @@ module athena_top(
     logic        HBLANK, VBLANK, HSYNC, VSYNC, CE_PIXEL;
     logic signed [15:0] snd1, snd2;
 
-    pocket::key_t k;
+    pocket::key_t keys[1:2];
+    logic exists[1:2];
+    ControllerToD#(
+        .NUM_CONTROLLERS (2),
+        .MAP_JOYSTICK    ('1)
+    ) ctd (
+        .controllers,
+        .keys,
+        .exists
+    );
+
+    pocket::key_t k1, k2;
     always_comb begin
-        k             = controller.key;
+        k1            = keys[1];
+        k2            = keys[2];
         pause_cpu     =  ~reset_n;
         dsw1          = 8'hf7;
         dsw2          = 8'h9c;
-        PLAYER1       = '1;
-        PLAYER1       = {2'b11,
-            ~k.dpad_up,
-            ~k.dpad_down,
-            ~k.dpad_right,
-            ~k.dpad_left,
+        PLAYER1 = '1;
+        PLAYER1 = {
+            2'b11,
+            ~k1.dpad_up,
+            ~k1.dpad_down,
+            ~k1.dpad_right,
+            ~k1.dpad_left,
             1'b1,
             5'b11111,
-            ~k.face_b,
-            ~k.face_a,
-            ~k.face_start,
-            ~k.face_select
+            ~k1.face_b,
+            ~k1.face_a,
+            ~k1.face_start,
+            ~k1.face_select
             };
-        PLAYER2       = '1;
+
+        PLAYER2 = '1;
+        PLAYER2 = {
+            2'b11,
+            ~k2.dpad_up,
+            ~k2.dpad_down,
+            ~k2.dpad_right,
+            ~k2.dpad_left,
+            1'b1,
+            5'b11111,
+            ~k2.face_b,
+            ~k2.face_a,
+            ~k2.face_start,
+            ~k2.face_select
+        };
 
         // FIXME: take a register or memory write to get the game
         game          = 8'h02;
