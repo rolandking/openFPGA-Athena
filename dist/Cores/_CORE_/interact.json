@@ -1,6 +1,231 @@
 {
     "interact": {
         "magic": "APF_VER_1",
-        "variables": []
+        "variables": [
+            {
+                "name": "Cabinet",
+                "id": 20,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200000",
+                "mask" : "0xfffffffe",
+                "defaultval" : "0x1",
+                "options": [
+                    {
+                        "value": "0x1",
+                        "name": "Cocktail"
+                    },
+                    {
+                        "value": "0x0",
+                        "name": "Upright"
+                    }
+                ]
+            },
+            {
+                "name": "Lives",
+                "id": 21,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200000",
+                "mask" : "0xfffffffd",
+                "defaultval" : "0x2",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "5 lives"
+                    },
+                    {
+                        "value": "0x2",
+                        "name": "3 lives"
+                    }
+                ]
+            },
+            {
+                "name": "Coin A",
+                "id": 22,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200000",
+                "mask" : "0xfffffff3",
+                "defaultval" : "0xc",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "4 coins / 1 credit"
+                    },
+                    {
+                        "value": "0x4",
+                        "name": "3 coins / 1 credit"
+                    },
+                    {
+                        "value": "0x8",
+                        "name": "2 coins / 1 credit"
+                    },
+                    {
+                        "value": "0xc",
+                        "name": "1 coin / 1 credit"
+                    }
+                ]
+            },
+            {
+                "name": "Coin B",
+                "id": 23,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200000",
+                "mask" : "0xffffffcf",
+                "defaultval" : "0x30",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "1 coin / 2 credit"
+                    },
+                    {
+                        "value": "0x10",
+                        "name": "1 coin / 3 credit"
+                    },
+                    {
+                        "value": "0x20",
+                        "name": "1 coin / 4 credit"
+                    },
+                    {
+                        "value": "0x30",
+                        "name": "1 coin / 6 credits"
+                    }
+                ]
+            },
+            {
+                "name": "Difficulty",
+                "id": 24,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200000",
+                "mask" : "0xffffff3f",
+                "defaultval" : "0xc0",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "Hardest"
+                    },
+                    {
+                        "value": "0x40",
+                        "name": "Hard"
+                    },
+                    {
+                        "value": "0x80",
+                        "name": "Normal"
+                    },
+                    {
+                        "value": "0xc0",
+                        "name": "Easy"
+                    }
+                ]
+            },
+            {
+                "name": "Demo Sounds",
+                "id": 25,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200000",
+                "mask" : "0xfffffeff",
+                "defaultval" : "0x100",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "Off"
+                    },
+                    {
+                        "value": "0x100",
+                        "name": "On"
+                    }
+                ]
+            },
+            {
+                "name": "Freeze",
+                "id": 26,
+                "type": "list",
+                "enabled": false,
+                "persist": false,
+                "address": "0x00200000",
+                "mask" : "0xfffffdff",
+                "defaultval" : "0x200",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "Frozen"
+                    },
+                    {
+                        "value": "0x200",
+                        "name": "Running"
+                    }
+                ]
+            },
+            {
+                "name": "Bonus Life",
+                "id": 27,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200000",
+                "mask" : "0xffffe3ff",
+                "defaultval" : "0x1400",
+                "options": [
+                    {
+                        "value": "0x0000",
+                        "name": "None"
+                    },
+                    {
+                        "value": "0x0800",
+                        "name": "100k 200k"
+                    },
+                    {
+                        "value": "0x1000",
+                        "name": "60k 120k"
+                    },
+                    {
+                        "value": "0x1800",
+                        "name": "50k 100k"
+                    },
+                    {
+                        "value": "0x0c00",
+                        "name": "100k 200k 200k+"
+                    },
+                    {
+                        "value": "0x1400",
+                        "name": "60k 120k 120k+"
+                    },
+                    {
+                        "value": "0x1c00",
+                        "name": "50k 100k 100k+"
+                    }
+                ]
+            },
+            {
+                "name": "Energy",
+                "id": 28,
+                "type": "list",
+                "enabled": false,
+                "persist": false,
+                "address": "0x00200000",
+                "mask" : "0xffffdfff",
+                "defaultval" : "0x2000",
+                "options": [
+                    {
+                        "value": "0x0000",
+                        "name": "14"
+                    },
+                    {
+                        "value": "0x2000",
+                        "name": "12"
+                    }
+                ]
+            }
+        ]
     }
 }
