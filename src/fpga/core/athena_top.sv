@@ -5,6 +5,7 @@ module athena_top(
     input logic        reset_n,
     output logic       pll_core_locked,
     bus_if             bridge_rom,
+    bus_if             bridge_dip,
     video_if           video,
     audio_if           audio,
 
@@ -39,7 +40,7 @@ module athena_top(
     );
 
     logic        pause_cpu;
-    logic [7:0]  dsw1, dsw2;
+    logic [15:0] dip_switches;
     logic [15:0] PLAYER1, PLAYER2;
     logic [7:0]  game;
     logic [7:0]  hack_settings;
@@ -54,14 +55,18 @@ module athena_top(
     logic signed [15:0] snd1, snd2;
 
     pocket::key_t keys[1:2];
-    logic exists[1:2];
     ControllerToD#(
         .NUM_CONTROLLERS (2),
         .MAP_JOYSTICK    ('1)
     ) ctd (
         .controllers,
         .keys,
-        .exists
+        .exists       ()
+    );
+
+    athena_dip ad(
+        .bridge       (bridge_dip),
+        .dip_switches,
     );
 
     pocket::key_t k1, k2;
@@ -69,8 +74,6 @@ module athena_top(
         k1            = keys[1];
         k2            = keys[2];
         pause_cpu     =  ~reset_n;
-        dsw1          = 8'hf7;
-        dsw2          = 8'h9c;
         PLAYER1 = '1;
         PLAYER1 = {
             2'b11,
@@ -147,7 +150,7 @@ module athena_top(
         .VIDEO_RSTn(reset_n),
         .pause_cpu(pause_cpu),
         .i_clk(clk_53_6_mhz), //53.6MHz
-        .DSW({dsw2,dsw1}),
+        .DSW(dip_switches),
         .PLAYER1,
         .PLAYER2,
         .TRACKBALL1('0),

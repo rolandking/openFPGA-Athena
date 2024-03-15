@@ -67,6 +67,7 @@ module user_top (
         DATASLOT = 1,
         ID = 2,
         ROM = 3,
+        DIP = 4,
         NUM_LEAVES
     } leaf_e;
 
@@ -79,7 +80,8 @@ module user_top (
       '{from_addr : 32'hf8000000, to_addr : 32'hf8001fff},
       '{from_addr : 32'hf8002000, to_addr : 32'hf80020ff},
       '{from_addr : 32'hf8002380, to_addr : 32'hf80023ff},
-      '{from_addr : 32'h00000000, to_addr : 32'h00100000}
+      '{from_addr : 32'h00000000, to_addr : 32'h00100000},
+      '{from_addr : 32'h00200000, to_addr : 32'h00200000}
     };
 
     bridge_master #(
@@ -217,6 +219,7 @@ module user_top (
         .reset_n,
         .pll_core_locked,
         .bridge_rom       (bridge_out[ROM]),
+        .bridge_dip       (bridge_out[DIP]),
         .video            (video_raw),
         .audio,
         .cram             (cram0),
