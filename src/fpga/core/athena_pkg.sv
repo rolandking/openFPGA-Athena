@@ -70,7 +70,7 @@ package athena;
 
     function automatic logic[15:0] dip_switch_map(dip_switch_t d);
         return {
-            d.energy,     1'b0, d.bonus_life[1:0], d.freeze,        d.demo_sounds, d.difficulty,
+            d.energy,     1'b0, d.bonus_life[1:0],            1'b1, d.demo_sounds, d.difficulty,
             d.coin_b, d.coin_a, d.lives,           d.bonus_life[0], d.cabinet,             1'b0
         };
     endfunction

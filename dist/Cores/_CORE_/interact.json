@@ -4,7 +4,7 @@
         "variables": [
             {
                 "name": "Cabinet",
-                "id": 20,
+                "id": 1,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
@@ -24,7 +24,7 @@
             },
             {
                 "name": "Lives",
-                "id": 21,
+                "id": 2,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
@@ -44,7 +44,7 @@
             },
             {
                 "name": "Coin A",
-                "id": 22,
+                "id": 3,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
@@ -72,7 +72,7 @@
             },
             {
                 "name": "Coin B",
-                "id": 23,
+                "id": 4,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
@@ -100,7 +100,7 @@
             },
             {
                 "name": "Difficulty",
-                "id": 24,
+                "id": 5,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
@@ -128,7 +128,7 @@
             },
             {
                 "name": "Demo Sounds",
-                "id": 25,
+                "id": 6,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
@@ -143,86 +143,6 @@
                     {
                         "value": "0x100",
                         "name": "On"
-                    }
-                ]
-            },
-            {
-                "name": "Freeze",
-                "id": 26,
-                "type": "list",
-                "enabled": false,
-                "persist": false,
-                "address": "0x00200000",
-                "mask" : "0xfffffdff",
-                "defaultval" : "0x200",
-                "options": [
-                    {
-                        "value": "0x0",
-                        "name": "Frozen"
-                    },
-                    {
-                        "value": "0x200",
-                        "name": "Running"
-                    }
-                ]
-            },
-            {
-                "name": "Bonus Life",
-                "id": 27,
-                "type": "list",
-                "enabled": true,
-                "persist": true,
-                "address": "0x00200000",
-                "mask" : "0xffffe3ff",
-                "defaultval" : "0x1400",
-                "options": [
-                    {
-                        "value": "0x0000",
-                        "name": "None"
-                    },
-                    {
-                        "value": "0x0800",
-                        "name": "100k 200k"
-                    },
-                    {
-                        "value": "0x1000",
-                        "name": "60k 120k"
-                    },
-                    {
-                        "value": "0x1800",
-                        "name": "50k 100k"
-                    },
-                    {
-                        "value": "0x0c00",
-                        "name": "100k 200k 200k+"
-                    },
-                    {
-                        "value": "0x1400",
-                        "name": "60k 120k 120k+"
-                    },
-                    {
-                        "value": "0x1c00",
-                        "name": "50k 100k 100k+"
-                    }
-                ]
-            },
-            {
-                "name": "Energy",
-                "id": 28,
-                "type": "list",
-                "enabled": false,
-                "persist": false,
-                "address": "0x00200000",
-                "mask" : "0xffffdfff",
-                "defaultval" : "0x2000",
-                "options": [
-                    {
-                        "value": "0x0000",
-                        "name": "14"
-                    },
-                    {
-                        "value": "0x2000",
-                        "name": "12"
                     }
                 ]
             }

@@ -10,6 +10,8 @@ module athena_dip(
         if(bridge.wr) begin
             dip_switch <= bridge.wr_data;
         end
+        bridge.rd_data       <= dip_switch;
+        bridge.rd_data_valid <= bridge.rd;
     end
 
     always_comb begin
