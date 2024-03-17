@@ -82,9 +82,9 @@ module athena_top(
             ~k1.dpad_down,
             ~k1.dpad_right,
             ~k1.dpad_left,
-            ~k1.face_y,
-            5'b11111,
             1'b1,
+            5'b11111,
+            ~k1.face_b,
             ~k1.face_a,
             ~k1.face_start,
             ~k1.face_select
