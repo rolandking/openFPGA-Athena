@@ -32,8 +32,8 @@ package athena;
     } difficulty_e;
 
     typedef enum logic {
-        demo_sounds_on     = 1'b1,
-        demo_sounds_off    = 1'b0
+        demo_sounds_on     = 1'b0,
+        demo_sounds_off    = 1'b1
     } demo_sounds_e;
 
     typedef enum logic {

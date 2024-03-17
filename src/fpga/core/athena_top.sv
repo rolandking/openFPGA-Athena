@@ -10,7 +10,8 @@ module athena_top(
     audio_if           audio,
 
     cram_if            cram,
-    input controller_t controllers[1:4]
+    input controller_t controllers[1:4],
+    input logic        in_menu
 );
 
     /* main clock for Athena runs at 53.600MHz
@@ -73,7 +74,7 @@ module athena_top(
     always_comb begin
         k1            = keys[1];
         k2            = keys[2];
-        pause_cpu     =  ~reset_n;
+        pause_cpu     =  ~reset_n || in_menu;
         PLAYER1 = '1;
         PLAYER1 = {
             2'b11,
@@ -81,9 +82,9 @@ module athena_top(
             ~k1.dpad_down,
             ~k1.dpad_right,
             ~k1.dpad_left,
-            1'b1,
+            ~k1.face_y,
             5'b11111,
-            ~k1.face_b,
+            1'b1,
             ~k1.face_a,
             ~k1.face_start,
             ~k1.face_select
@@ -107,7 +108,7 @@ module athena_top(
         // FIXME: take a register or memory write to get the game
         game          = 8'h02;
 
-        // FIXME: is this the screen flip?
+        // FIXME: is this the screen flip? remove it and flip in video.json
         hack_settings = 8'b00000001;
 
         layer_ena_dbg = '1;
