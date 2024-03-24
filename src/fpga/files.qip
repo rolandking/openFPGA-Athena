@@ -15,6 +15,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE core/athena_pkg.sv
 set_global_assignment -name SYSTEMVERILOG_FILE core/user_top.sv
 set_global_assignment -name SYSTEMVERILOG_FILE core/athena_top.sv
 set_global_assignment -name SYSTEMVERILOG_FILE core/athena_dip.sv
+set_global_assignment -name SYSTEMVERILOG_FILE core/athena_hiscore.sv
 set_global_assignment -name SYSTEMVERILOG_FILE core/ym3256_mem.sv
 
 set_global_assignment -name QIP_FILE mister_files.qip

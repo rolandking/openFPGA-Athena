@@ -20,6 +20,17 @@
                     "rom"
                 ],
                 "address": "0x00000000"
+            },
+            {
+                "name": "HISCORE",
+                "id": 2,
+                "required": false,
+                "parameters": "0x04",
+                "nonvolatile": true,
+                "extensions": ["nvm"],
+                "exact_size" : 114,
+                "deferload" : true,
+                "address": "0x10000000"
             }
         ]
     }

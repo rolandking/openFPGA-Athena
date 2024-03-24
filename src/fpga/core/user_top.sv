@@ -68,6 +68,7 @@ module user_top (
         ID = 2,
         ROM = 3,
         DIP = 4,
+        HISCORE = 5,
         NUM_LEAVES
     } leaf_e;
 
@@ -76,12 +77,18 @@ module user_top (
         .data_width  (32)
     ) bridge_out[NUM_LEAVES](.clk(clk_74a));
 
+    bus_if#(
+        .addr_width  (32),
+        .data_width  (32)
+    ) bridge_dataslot_out(.clk(clk_74a));
+
     localparam pocket::bridge_addr_range_t range_all[NUM_LEAVES] = '{
       '{from_addr : 32'hf8000000, to_addr : 32'hf8001fff},
       '{from_addr : 32'hf8002000, to_addr : 32'hf80020ff},
       '{from_addr : 32'hf8002380, to_addr : 32'hf80023ff},
       '{from_addr : 32'h00000000, to_addr : 32'h00100000},
-      '{from_addr : 32'h00200000, to_addr : 32'h00200020}
+      '{from_addr : 32'h00200000, to_addr : 32'h00200020},
+      '{from_addr : 32'h10000000, to_addr : 32'h10000071}
     };
 
     bridge_master #(
@@ -147,7 +154,7 @@ module user_top (
     bridge_core bc(
         .bridge_cmd                        (bridge_out[CMD]),
         .bridge_id                         (bridge_out[ID]),
-        .bridge_dataslot                   (bridge_out[DATASLOT]),
+        .bridge_dataslot                   (bridge_dataslot_out),
         .core_status,
         .reset_n,
         .host_dataslot_request_read,
@@ -218,13 +225,16 @@ module user_top (
         .clk_74a,
         .reset_n,
         .pll_core_locked,
-        .bridge_rom       (bridge_out[ROM]),
-        .bridge_dip       (bridge_out[DIP]),
-        .video            (video_raw),
+        .bridge_rom            (bridge_out[ROM]),
+        .bridge_dip            (bridge_out[DIP]),
+        .bridge_hs             (bridge_out[HISCORE]),
+        .video                 (video_raw),
         .audio,
-        .cram             (cram0),
+        .cram                  (cram0),
         .controllers,
-        .in_menu
+        .in_menu,
+        .bridge_dataslot_in    (bridge_out[DATASLOT]),
+        .bridge_dataslot_out
     );
 
 endmodule

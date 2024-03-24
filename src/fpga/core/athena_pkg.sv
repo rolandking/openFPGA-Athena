@@ -111,4 +111,16 @@ package athena;
     //              1     - bonus_life[0]  --> bonus_life == 010 == 100/200
     //               1    - cabinet             (cocktail)
     //                1   - dummy
+
+    typedef struct packed {
+        logic [12:0] addr;
+        logic [7:0]  data_out;
+        logic [7:0]  data_in;
+        logic        nCS;
+        logic        nWE;
+        logic        VDG;
+        logic        VOE;
+        logic        VRD;
+    } side_ram_t;
+
 endpackage
