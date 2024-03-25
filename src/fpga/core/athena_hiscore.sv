@@ -1,13 +1,13 @@
 `timescale 1ns/1ps
 
-logic base_written_a;
 module athena_hiscore(
     bus_if                    bridge_hs,
     input logic               game_clk,
     input athena::side_ram_t  side_ram_monitor,
     output athena::side_ram_t side_ram_in,
 
-    output logic              base_written_a
+    output logic              base_written_a,
+    output logic [NUM_TESTS-1:0]     test_match_a
 );
 
     // monitor writes to the first 2 and last 2 addresses
@@ -41,6 +41,8 @@ module athena_hiscore(
 
     always_comb begin
         side_ram_in = side_ram_monitor;
+        base_written_a = base_written;
+        test_match_a = test_match;
     end
 
 endmodule

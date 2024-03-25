@@ -153,12 +153,16 @@ module athena_top(
 
     athena::side_ram_t side_ram_monitor;
     athena::side_ram_t side_ram_in;
+    logic base_written_a;
+    logic [4:0] test_match_a;
 
     athena_hiscore(
         .bridge_hs,
         .game_clk          (clk_53_6_mhz),
         .side_ram_monitor,
-        .side_ram_in
+        .side_ram_in,
+        .base_written_a,
+        .test_match_a
     );
 
     AthenaCore snk_athena
