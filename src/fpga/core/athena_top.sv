@@ -1,23 +1,25 @@
 
 
 module athena_top(
-    input logic        clk_74a,
-    input logic        reset_n,
-    output logic       pll_core_locked,
-    bus_if             bridge_rom,
-    bus_if             bridge_dip,
-    bus_if             bridge_hs,
-    video_if           video,
-    audio_if           audio,
+    input logic                    clk_74a,
+    input logic                    reset_n,
+    output logic                   pll_core_locked,
+    bus_if                         bridge_rom,
+    bus_if                         bridge_dip,
+    bus_if                         bridge_hs,
+    video_if                       video,
+    audio_if                       audio,
 
-    cram_if            cram,
-    input controller_t controllers[1:4],
-    input logic        in_menu,
+    cram_if                        cram,
+    input controller_t             controllers[1:4],
+    input logic                    in_menu,
 
     // replace the size of the hiscore slot with the correct
     // size if not loaded so that it saves
-    bus_if             bridge_dataslot_in,
-    bus_if             bridge_dataslot_out
+    bus_if                         bridge_dataslot_in,
+    bus_if                         bridge_dataslot_out,
+
+    host_dataslot_request_write_if host_dataslot_request_write
 );
 
     /* main clock for Athena runs at 53.600MHz
@@ -153,16 +155,16 @@ module athena_top(
 
     athena::side_ram_t side_ram_monitor;
     athena::side_ram_t side_ram_in;
-    logic base_written_a;
-    logic [4:0] test_match_a;
 
-    athena_hiscore(
+    athena_hiscore hiscore(
         .bridge_hs,
         .game_clk          (clk_53_6_mhz),
         .side_ram_monitor,
         .side_ram_in,
-        .base_written_a,
-        .test_match_a
+
+        .bridge_dataslot_in,
+        .bridge_dataslot_out,
+        .host_dataslot_request_write
     );
 
     AthenaCore snk_athena
