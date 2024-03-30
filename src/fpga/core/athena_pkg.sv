@@ -123,4 +123,13 @@ package athena;
         logic        VRD;
     } side_ram_t;
 
+    // highscore data is a 0xfe50 on the CPU side memory. To make
+    // the mapping easier, use 0x1000fe50 as the load address for
+    // the hiscore data.
+    // This need to match data.json
+    parameter pocket::slot_id_t     HISCORE_SLOT_ID = 2;
+    parameter pocket::bridge_addr_t HISCORE_START   = 32'h1000fe50;
+    parameter pocket::bridge_data_t HISCORE_SIZE    = 32'h72;
+    parameter pocket::bridge_addr_t HISCORE_END     = HISCORE_START + HISCORE_SIZE - 1;
+
 endpackage

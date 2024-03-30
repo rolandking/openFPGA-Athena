@@ -23,9 +23,6 @@ module athena_hiscore(
     localparam int NUM_TESTS                   = 5;
     localparam ram_addr_t ADDRESSES[NUM_TESTS] = '{11'h650, 11'h651, 11'h6bf, 11'h6c0, 11'h6c1};
     localparam data_t DATA[NUM_TESTS]          = '{ 8'heb,   8'hf8,   8'h30,   8'h30,   8'hff };
-    localparam pocket::slot_id_t SLOT_ID       = 2;
-    localparam pocket::bridge_data_t SLOT_SIZE = 16'h72;
-    localparam pocket::bridge_addr_t SLOT_ADDR = 32'h10000000;
 
     logic [NUM_TESTS-1:0] test_match = '0;
 
@@ -53,8 +50,8 @@ module athena_hiscore(
     logic                 slot_size_zero;
 
     bridge_dataslot_find_and_replace#(
-        .SLOT_ID    (SLOT_ID),
-        .SLOT_SIZE  (SLOT_SIZE)
+        .SLOT_ID    (athena::HISCORE_SLOT_ID),
+        .SLOT_SIZE  (athena::HISCORE_SIZE)
     ) find_and_replace (
         .bridge_dataslot_in,
         .bridge_dataslot_out,
@@ -63,10 +60,6 @@ module athena_hiscore(
         .slot_base_found,
         .slot_size_zero
     );
-
-    always_comb begin
-        side_ram_in    = side_ram_monitor;
-    end
 
     typedef enum logic[1:0] {
         WAITING = 2'b00,
@@ -103,10 +96,10 @@ module athena_hiscore(
     end
 
     always_comb begin
-        core_dataslot_read.param.slot_id     = SLOT_ID;
+        core_dataslot_read.param.slot_id     = athena::HISCORE_SLOT_ID;
         core_dataslot_read.param.slot_offset = '0;
-        core_dataslot_read.param.bridge_addr = SLOT_ADDR;
-        core_dataslot_read.param.length      = SLOT_SIZE;
+        core_dataslot_read.param.bridge_addr = athena::HISCORE_START;
+        core_dataslot_read.param.length      = athena::HISCORE_SIZE;
         core_dataslot_read.valid             = (state == WRITING);
 
         // the CPU is already paused during the final hi-score read
@@ -114,5 +107,50 @@ module athena_hiscore(
         // hi-score table is being written
         hs_pause_req                         = (state == WRITING);
     end
+
+    // read and write for the HISCORE data
+    bus_if#(
+        .addr_width  (32),
+        .data_width  (32)
+    ) hs_cdc (.clk(game_clk));
+
+    bridge_cdc mem_cdc(
+        .in  (bridge_hs),
+        .out (hs_cdc)
+    );
+
+    bus_if#(
+        .addr_width  (13),
+        .data_width  (8)
+    ) mem (.clk(game_clk));
+
+    bridge_to_bytes to_mem (
+        .bridge  (hs_cdc),
+        .mem
+    );
+
+    // when the CPU is paused we connect the memory system to the
+    // bridge, else we loop it back
+    always_comb begin
+        mem.rd_data = side_ram_monitor.data_out;
+        if(pause_cpu) begin
+            side_ram_in.addr     = mem.addr;
+            side_ram_in.data_in  = mem.wr_data;
+            side_ram_in.nCS      = '0;
+            side_ram_in.nWE      = ~mem.wr;
+            side_ram_in.VDG      = '0;
+            side_ram_in.VRD      = mem.wr;
+            side_ram_in.VOE      = '0;
+            side_ram_in.data_out = '0;
+        end else begin
+            side_ram_in = side_ram_monitor;
+        end
+    end
+
+    always_ff @(posedge mem.clk) begin
+        mem.rd_data_valid <= mem.rd;
+    end
+
+
 
 endmodule
