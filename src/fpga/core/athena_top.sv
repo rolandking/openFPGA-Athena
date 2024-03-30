@@ -19,7 +19,8 @@ module athena_top(
     bus_if                         bridge_dataslot_in,
     bus_if                         bridge_dataslot_out,
 
-    host_dataslot_request_write_if host_dataslot_request_write
+    host_dataslot_request_write_if host_dataslot_request_write,
+    core_dataslot_read_if          core_dataslot_read
 );
 
     /* main clock for Athena runs at 53.600MHz
@@ -48,6 +49,7 @@ module athena_top(
         .locked         ( pll_core_locked  )
     );
 
+    logic        hs_pause_req;
     logic        pause_cpu;
     logic [15:0] dip_switches;
     logic [15:0] PLAYER1, PLAYER2;
@@ -82,7 +84,7 @@ module athena_top(
     always_comb begin
         k1            = keys[1];
         k2            = keys[2];
-        pause_cpu     =  ~reset_n || in_menu;
+        pause_cpu     =  ~reset_n || in_menu || hs_pause_req;
         PLAYER1 = '1;
         PLAYER1 = {
             2'b11,
@@ -164,7 +166,11 @@ module athena_top(
 
         .bridge_dataslot_in,
         .bridge_dataslot_out,
-        .host_dataslot_request_write
+        .host_dataslot_request_write,
+        .core_dataslot_read,
+
+        .hs_pause_req,
+        .pause_cpu
     );
 
     AthenaCore snk_athena

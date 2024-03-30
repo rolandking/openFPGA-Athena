@@ -192,7 +192,7 @@ module user_top (
         core_status = bridge_pkg::host_request_status_result_default(pll_core_locked, reset_n, 1'b0);
 
         core_debug_event_log.tie_off();
-        core_dataslot_read.tie_off();
+        //core_dataslot_read.tie_off();
         core_dataslot_write.tie_off();
         core_dataslot_flush.tie_off();
         core_get_dataslot_filename.tie_off();
@@ -234,7 +234,9 @@ module user_top (
         .controllers,
         .in_menu,
         .bridge_dataslot_in    (bridge_out[DATASLOT]),
-        .bridge_dataslot_out
+        .bridge_dataslot_out,
+        .host_dataslot_request_write,
+        .core_dataslot_read
     );
 
 endmodule
