@@ -9,3 +9,6 @@
 **/*.rpt
 **/*.summary
 **/build_id.mif
+tags
+**/*.stp
+.vscode/**/*
