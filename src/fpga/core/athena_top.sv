@@ -158,6 +158,8 @@ module athena_top(
     athena::side_ram_t side_ram_monitor;
     athena::side_ram_t side_ram_in;
 
+    wire is_fighting_golf = (game == athena::game_fighting_golf);
+
     athena_hiscore hiscore(
         .bridge_hs,
         .game_clk          (clk_53_6_mhz),
@@ -170,7 +172,9 @@ module athena_top(
         .core_dataslot_read,
 
         .hs_pause_req,
-        .pause_cpu
+        .pause_cpu,
+
+        .is_fighting_golf
     );
 
     AthenaCore snk_athena

@@ -58,7 +58,7 @@ module athena_dip(
                 dip_switches = athena::dip_switch_athena_map(dip_switch_athena);
             end
             athena::game_fighting_golf: begin
-                dip_switches = ~athena::dip_switch_fighting_golf_map(dip_switch_fighting_golf);
+                dip_switches = athena::dip_switch_fighting_golf_map(dip_switch_fighting_golf);
             end
             default: begin
                 dip_switches = athena::dip_switch_athena_map(dip_switch_athena);

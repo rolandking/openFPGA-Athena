@@ -239,8 +239,9 @@ package athena;
     // the hiscore data.
     // This need to match data.json
     parameter pocket::slot_id_t     HISCORE_SLOT_ID = 2;
-    parameter pocket::bridge_addr_t HISCORE_START   = 32'h1000fe50;
-    parameter pocket::bridge_data_t HISCORE_SIZE    = 32'h72;
-    parameter pocket::bridge_addr_t HISCORE_END     = HISCORE_START + HISCORE_SIZE - 1;
+
+    // map a range of addresses to the high score dataslot
+    parameter pocket::bridge_addr_t HISCORE_START = 32'h10000000;
+    parameter pocket::bridge_addr_t HISCORE_END   = 32'h100000ff;
 
 endpackage

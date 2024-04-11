@@ -31,7 +31,7 @@ set_global_assignment -name VERILOG_FILE ../../mister/rtl/ttl/ttl_74139_nodly.v
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/ttl/ttl_74138_nodly.v
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/ttl/ttl_74107a_sync.v
 set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/ttl/ttl_74374_sync.sv
-set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/sound/Dual_YM3526_Sound.sv
+#set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/sound/Dual_YM3526_Sound.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/side/AthenaCore_Side_sync.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/registers/AthenaCore_Registers_sync.sv
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/ram/SRAM_dual_sync_init.v
@@ -51,8 +51,12 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/clocks/TNKIIICor
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/clocks/TNKIIICore_Clocks_Cen.v
 set_global_assignment -name QIP_FILE ../../mister/rtl/ym3526/jt26.qip
 set_global_assignment -name QIP_FILE ../../mister/rtl/T80/T80.qip
-set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/AthenaCore.sv
+#set_global_assignment -name SYSTEMVERILOG_FILE ../../mister/rtl/AthenaCore.sv
 set_global_assignment -name QIP_FILE ../../mister/sys/sys.qip
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/pause.v
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/clocks/A6001_1.v
 set_global_assignment -name VERILOG_FILE ../../mister/rtl/cpuA_B/A6001_2.v
+
+set_global_assignment -name SYSTEMVERILOG_FILE mister_changed/rtl/AthenaCore.sv
+set_global_assignment -name SYSTEMVERILOG_FILE mister_changed/rtl/sound/Dual_YM3526_Sound.sv
+

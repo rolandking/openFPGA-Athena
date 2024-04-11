@@ -28,9 +28,8 @@
                 "parameters": "0x04",
                 "nonvolatile": true,
                 "extensions": ["nvm"],
-                "exact_size" : 114,
                 "deferload" : true,
-                "address": "0x1000fe50"
+                "address": "0x10000000"
             }
         ]
     }
