@@ -204,7 +204,7 @@
                 "enabled": true,
                 "persist": true,
                 "address": "0x00200024",
-                "defaultval" : "0x10",
+                "defaultval" : "0x01",
                 "options": [
                     {
                         "value": "0x0",

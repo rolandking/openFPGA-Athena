@@ -188,19 +188,19 @@ package athena;
     } fg_test_mode_e;
 
     /*
-		<dip bits="0"	  name="Language" ids="English, Japanese" values="1,0"/>
-		<dip bits="1"     name="Flip Screen" ids="Off,On" values="1,0"/>
-		<dip bits="2"     name="Controls" ids="Single,Dual" values="0,1"/>
-		<dip bits="3"     name="Gameplay" ids="Basic Player,Avid Golfer" values="0,1"/>
-		<dip bits="5,6"   name="Coin A" ids="4Co/1Cr,3Co/1Cr,2Co/1Cr,1Co/1Cr" values="0,1,2,3"/>
-		<dip bits="7,8"   name="Coin B" ids="1Co/2Cr,1Co/3Cr,1Co/4Cr,1Co/6Cr" values="0,2,1,3"/>
+     <dip bits="0"	  name="Language" ids="English, Japanese" values="1,0"/>
+     <dip bits="1"     name="Flip Screen" ids="Off,On" values="1,0"/>
+     <dip bits="2"     name="Controls" ids="Single,Dual" values="0,1"/>
+     <dip bits="3"     name="Gameplay" ids="Basic Player,Avid Golfer" values="0,1"/>
+     <dip bits="5,6"   name="Coin A" ids="4Co/1Cr,3Co/1Cr,2Co/1Cr,1Co/1Cr" values="0,1,2,3"/>
+     <dip bits="7,8"   name="Coin B" ids="1Co/2Cr,1Co/3Cr,1Co/4Cr,1Co/6Cr" values="0,2,1,3"/>
 
-		<!-- DSW2 -->
-		<dip bits="8"     name="Shot Time" ids="Short (15 sec),Long (20sec)" values="0,1"/>
-		<dip bits="9"     name="Bonus Holes" ids="More (Par 1,Birdie 2,Eagle 3),Less (Par 0,Birdie 1,Eagle 2)" values="1,0"/>
-		<dip bits="10,11" name="Game Mode" ids="Demo Sounds Off,Demo Sounds On,Freeze,Infinite Holes (Cheat)" values="1,3,0,2"/>
-		<dip bits="12,13" name="Play Holes" ids="2,3,4,5" values="3,2,1,0"/>
-		<dip bits="14"    name="Allow Continue (Cheat)" ids="No,Yes" values="0,1"/>
+     <!-- DSW2 -->
+     <dip bits="8"     name="Shot Time" ids="Short (15 sec),Long (20sec)" values="0,1"/>
+     <dip bits="9"     name="Bonus Holes" ids="More (Par 1,Birdie 2,Eagle 3),Less (Par 0,Birdie 1,Eagle 2)" values="1,0"/>
+     <dip bits="10,11" name="Game Mode" ids="Demo Sounds Off,Demo Sounds On,Freeze,Infinite Holes (Cheat)" values="1,3,0,2"/>
+     <dip bits="12,13" name="Play Holes" ids="2,3,4,5" values="3,2,1,0"/>
+     <dip bits="14"    name="Allow Continue (Cheat)" ids="No,Yes" values="0,1"/>
         */
 
     typedef struct packed {
