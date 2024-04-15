@@ -87,7 +87,7 @@ module user_top (
       '{from_addr : 32'hf8002000, to_addr : 32'hf80020ff},
       '{from_addr : 32'hf8002380, to_addr : 32'hf80023ff},
       '{from_addr : 32'h00000000, to_addr : 32'h00100000},
-      '{from_addr : 32'h00200000, to_addr : 32'h00200020},
+      '{from_addr : 32'h00200000, to_addr : 32'h00200040},
       '{from_addr : athena::HISCORE_START, to_addr : athena::HISCORE_END}
     };
 

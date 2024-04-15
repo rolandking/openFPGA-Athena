@@ -10,6 +10,12 @@
 				"id": 1,
 				"filename": "athena.rom"
 			}
-		]
+		],
+        "memory_writes": [
+            {
+                "address" : "0x0020003c",
+                "data"    : "0x02"
+            }
+        ]
 	}
 }

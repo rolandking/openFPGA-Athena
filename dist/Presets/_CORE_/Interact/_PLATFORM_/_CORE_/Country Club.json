@@ -3,7 +3,7 @@
         "magic": "APF_VER_1",
         "variables": [
             {
-                "name": "Cabinet",
+                "name": "Language",
                 "id": 21,
                 "type": "list",
                 "enabled": true,
@@ -13,16 +13,16 @@
                 "options": [
                     {
                         "value": "0x0",
-                        "name": "Upright"
+                        "name": "Japanese"
                     },
                     {
                         "value": "0x1",
-                        "name": "Cocktail"
+                        "name": "English"
                     }
                 ]
             },
             {
-                "name": "Lives",
+                "name": "Screen Flip",
                 "id": 22,
                 "type": "list",
                 "enabled": true,
@@ -32,21 +32,59 @@
                 "options": [
                     {
                         "value": "0x0",
-                        "name": "5 lives"
+                        "name": "On"
                     },
                     {
                         "value": "0x1",
-                        "name": "3 lives"
+                        "name": "Off"
                     }
                 ]
             },
             {
-                "name": "Coin A",
+                "name": "Controls",
                 "id": 23,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
                 "address": "0x00200008",
+                "defaultval" : "0x0",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "Single"
+                    },
+                    {
+                        "value": "0x1",
+                        "name": "Dual"
+                    }
+                ]
+            },
+            {
+                "name": "Gameplay",
+                "id": 24,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x0020000c",
+                "defaultval" : "0x0",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "Basic"
+                    },
+                    {
+                        "value": "0x1",
+                        "name": "Avid"
+                    }
+                ]
+            },
+            {
+                "name": "Coin A",
+                "id": 25,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200010",
                 "defaultval" : "0x3",
                 "options": [
                     {
@@ -69,12 +107,12 @@
             },
             {
                 "name": "Coin B",
-                "id": 24,
+                "id": 26,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
-                "address": "0x0020000c",
-                "defaultval" : "0x3",
+                "address": "0x00200014",
+                "defaultval" : "0x0",
                 "options": [
                     {
                         "value": "0x0",
@@ -95,106 +133,133 @@
                 ]
             },
             {
-                "name": "Difficulty",
-                "id": 25,
-                "type": "list",
-                "enabled": true,
-                "persist": true,
-                "address": "0x00200010",
-                "defaultval" : "0x3",
-                "options": [
-                    {
-                        "value": "0x0",
-                        "name": "Hardest"
-                    },
-                    {
-                        "value": "0x1",
-                        "name": "Hard"
-                    },
-                    {
-                        "value": "0x2",
-                        "name": "Normal"
-                    },
-                    {
-                        "value": "0x3",
-                        "name": "Easy"
-                    }
-                ]
-            },
-            {
-                "name": "Demo Sounds",
-                "id": 26,
-                "type": "list",
-                "enabled": true,
-                "persist": true,
-                "address": "0x00200014",
-                "defaultval" : "0x1",
-                "options": [
-                    {
-                        "value": "0x0",
-                        "name": "On"
-                    },
-                    {
-                        "value": "0x1",
-                        "name": "Off"
-                    }
-                ]
-            },
-            {
-                "name": "Bonus Life",
+                "name": "Shot Time",
                 "id": 27,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
                 "address": "0x00200018",
-                "defaultval" : "0x2",
+                "defaultval" : "0x0",
                 "options": [
                     {
                         "value": "0x0",
-                        "name": "none"
+                        "name": "Short"
                     },
                     {
-                        "value": "0x2",
-                        "name": "100/200"
-                    },
-                    {
-                        "value": "0x3",
-                        "name": "100/200/200+"
-                    },
-                    {
-                        "value": "0x4",
-                        "name": "60/120"
-                    },
-                    {
-                        "value": "0x5",
-                        "name": "60/120/120+"
-                    },
-                    {
-                        "value": "0x6",
-                        "name": "50/100"
-                    },
-                    {
-                        "value": "0x7",
-                        "name": "50/100/100+"
+                        "value": "0x1",
+                        "name": "Long"
                     }
                 ]
             },
             {
-                "name": "Energy",
+                "name": "Bonus Holes",
                 "id": 28,
                 "type": "list",
                 "enabled": true,
                 "persist": true,
                 "address": "0x0020001c",
+                "defaultval" : "0x0",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "Less"
+                    },
+                    {
+                        "value": "0x1",
+                        "name": "More"
+                    }
+                ]
+            },
+            {
+                "name": "Game Mode",
+                "id": 29,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200020",
                 "defaultval" : "0x1",
                 "options": [
                     {
                         "value": "0x0",
-                        "name": "Energy 14"
+                        "name": "Freeze"
                     },
                     {
                         "value": "0x1",
-                        "name": "Energy 12"
+                        "name": "Demo On"
+                    },
+                    {
+                        "value": "0x2",
+                        "name": "Infinite Holes"
+                    },
+                    {
+                        "value": "0x3",
+                        "name": "Demo Off"
+                    }
+                ]
+            },
+            {
+                "name": "Play Holes",
+                "id": 30,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200024",
+                "defaultval" : "0x10",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "5"
+                    },
+                    {
+                        "value": "0x1",
+                        "name": "4"
+                    },
+                    {
+                        "value": "0x2",
+                        "name": "3"
+
+                    },
+                    {
+                        "value": "0x3",
+                        "name": "2"
+                    }
+                ]
+            },
+            {
+                "name": "Continue",
+                "id": 31,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x00200028",
+                "defaultval" : "0x0",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "No"
+                    },
+                    {
+                        "value": "0x1",
+                        "name": "Yes"
+                    }
+                ]
+            },
+            {
+                "name": "Test Mode",
+                "id": 32,
+                "type": "list",
+                "enabled": true,
+                "persist": true,
+                "address": "0x0020002c",
+                "defaultval" : "0x0",
+                "options": [
+                    {
+                        "value": "0x0",
+                        "name": "Off"
+                    },
+                    {
+                        "value": "0x1",
+                        "name": "On"
                     }
                 ]
             }

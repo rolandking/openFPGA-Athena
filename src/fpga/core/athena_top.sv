@@ -49,21 +49,23 @@ module athena_top(
         .locked         ( pll_core_locked  )
     );
 
-    logic        hs_pause_req;
-    logic        pause_cpu;
-    logic [15:0] dip_switches;
-    logic [15:0] PLAYER1, PLAYER2;
-    logic [7:0]  game;
-    logic [7:0]  hack_settings;
-    logic [24:0] ioctl_addr;
-    logic        ioctl_wr;
-    logic [7:0]  ioctl_data;
-    logic [2:0]  layer_ena_dbg;
-    logic [3:0]  dbg_B1Voffset;
-    logic        swap_px;
-    logic [3:0]  R,G,B;
-    logic        HBLANK, VBLANK, HSYNC, VSYNC, CE_PIXEL;
+    logic          hs_pause_req;
+    logic          pause_cpu;
+    logic [15:0]   dip_switches;
+    logic [15:0]   PLAYER1, PLAYER2;
+    athena::game_e game;
+    logic [7:0]    hack_settings;
+    logic [24:0]   ioctl_addr;
+    logic          ioctl_wr;
+    logic [7:0]    ioctl_data;
+    logic [2:0]    layer_ena_dbg;
+    logic [3:0]    dbg_B1Voffset;
+    logic          swap_px;
+    logic [3:0]    R,G,B;
+    logic          HBLANK, VBLANK, HSYNC, VSYNC, CE_PIXEL;
     logic signed [15:0] snd1, snd2;
+    logic [7:0] trackball_1_x, trackball_1_y;
+    wire [15:0] trackball_1 = {trackball_1_x, trackball_1_y};
 
     pocket::key_t keys[1:2];
     ControllerToD#(
@@ -76,8 +78,9 @@ module athena_top(
     );
 
     athena_dip ad(
-        .bridge       (bridge_dip),
+        .bridge                 (bridge_dip),
         .dip_switches,
+        .game
     );
 
     pocket::key_t k1, k2;
@@ -114,9 +117,6 @@ module athena_top(
             ~k2.face_start,
             ~k2.face_select
         };
-
-        // FIXME: take a register or memory write to get the game
-        game          = 8'h02;
 
         // FIXME: is this the screen flip? remove it and flip in video.json
         hack_settings = 8'b00000001;
@@ -182,9 +182,9 @@ module athena_top(
         .DSW(dip_switches),
         .PLAYER1,
         .PLAYER2,
-        .TRACKBALL1('0),
-        .TRACKBALL2('0),
-        .GAME(game), //default ASO (ASO,Alpha Mission, Arian Mission)
+        .TRACKBALL1(trackball_1),
+        .TRACKBALL2(trackball_1),
+        .GAME(game),
         //HACK settings
         .hack_settings(hack_settings),
         //hps_io rom interface
@@ -271,6 +271,35 @@ module athena_top(
 
         .audio
     );
+
+    // the trackball count 256 states, guessing it would take 4 seconds to
+    // max it out in any direction that's 64 ticks per second.
+    // the clock is 74.25MHz so we want to sample every 1,160,000 ticks
+    // which is about 20 bits
+    logic [19:0] track_counter, track_counter_next;
+    always_comb track_counter_next = {1'b0,track_counter[18:0]} + 20'd1;
+    always_ff @(posedge clk_74a) begin
+        track_counter <= track_counter_next;
+
+        if(track_counter[19]) begin
+
+            trackball_1_x <= 0;
+            trackball_1_y <= 0;
+
+            if(k1.dpad_left) begin
+                trackball_1_x <= 8'hb0;
+            end
+            if(k1.dpad_right) begin
+                trackball_1_x <= 8'h40;
+            end
+            if(k1.dpad_up) begin
+                trackball_1_y <= 8'hb0;
+            end
+            if(k1.dpad_down) begin
+                trackball_1_y <= 8'h40;
+            end
+        end
+    end
 
 
 endmodule

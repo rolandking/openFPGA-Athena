@@ -1,0 +1,21 @@
+{
+	"instance": {
+		"magic": "APF_VER_1",
+		"variant_select": {
+			"id": 777,
+			"select": false
+		},
+		"data_slots": [
+			{
+				"id": 1,
+				"filename": "fitegolf.rom"
+			}
+		],
+        "memory_writes": [
+            {
+                "address" : "0x0020003c",
+                "data"    : "0x04"
+            }
+        ]
+	}
+}
