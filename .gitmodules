@@ -1,5 +1,5 @@
 [submodule "mister"]
-	path = mister
+	path = mister.old
 	url = git@github.com:rolandking/Arcade-Athena_MiSTer.git
 [submodule "pocket-base"]
 	path = pocket-base
@@ -7,3 +7,6 @@
 [submodule "roland_mister"]
 	path = roland_mister
 	url = git@github.com:rolandking/Arcade-Athena_MiSTer.git
+[submodule "Arcade-Athena_MiSTer"]
+	path = mister
+	url = https://github.com/MiSTer-devel/Arcade-Athena_MiSTer.git
