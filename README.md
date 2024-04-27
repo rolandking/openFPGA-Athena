@@ -31,7 +31,7 @@ Analogue Pocket
 
 ## BUILDING
 
-    `git clone git@githum.com:rolandking/openFPGA-Athena.git --recursive`
+    `git clone git@github.com:rolandking/openFPGA-Athena.git --recursive`
 
 or clone the repo and do 
 
@@ -48,9 +48,9 @@ ROMs are not included, please provide your own. MRA files are linked from the ma
 
 ## CONTROLS
 
-`A`      - take a shot
+`A`      - (Athena) Jump - (Fighting Golf) take a shot
 
-`B`      - change club
+`B`      - (Athena) Hit  - (Fighting Golf) change club
 
 `select` - add a coin
 
