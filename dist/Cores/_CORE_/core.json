@@ -7,8 +7,8 @@
             "description": "Athena 1986",
             "author": "rolandking",
             "url": "https://github.com/rolandking/openFPGA-Athena",
-            "version": "1.0",
-            "date_release": "2024-03-02"
+            "version": "1.1.2",
+            "date_release": "2024-04-30"
         },
         "framework": {
             "target_product": "Analogue Pocket",
